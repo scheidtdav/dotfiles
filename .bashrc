@@ -41,3 +41,15 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
+
+# Flyline - enhanced Bash experience
+enable flyline 2>/dev/null || enable -f "/home/david/.local/lib/libflyline.so" flyline
+
+flyline_fzf_cd() {
+    local cmd
+    cmd=$(__fzf_cd__) && READLINE_LINE="$cmd" READLINE_POINT=${#cmd}
+}
+
+flyline key bind Ctrl+r 'always=runBashCommand(__fzf_history__)' # or runBashCommand(__fzf_history__)+submitOrNewline
+flyline key bind Ctrl+t 'always=runBashCommand(fzf-file-widget)'
+flyline key bind Alt+c  'always=runBashCommand(flyline_fzf_cd)+submitOrNewline'
