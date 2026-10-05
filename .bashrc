@@ -27,6 +27,11 @@ unset rc
 # Add kitty to path
 export PATH="~/.local/kitten.app/bin:$PATH"
 
+# Add nvm to path
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
 # Zoxide
 eval "$(zoxide init bash)"
 
@@ -36,6 +41,9 @@ eval "$(fzf --bash)"
 # starship
 eval "$(starship init bash)"
 
+# Homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+
 # dotfiles integration
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
@@ -43,7 +51,10 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 export PATH=$HOME/.opencode/bin:$PATH
 
 # Flyline - enhanced Bash experience
-enable flyline 2>/dev/null || enable -f "/home/david/.local/lib/libflyline.so" flyline
+# do not enable if shell is not interactive
+if [[ $- != *i* ]]; then return; fi
+enable flyline 2>/dev/null || enable -f "/home/dscheidt/.local/lib/libflyline.so" flyline
+flyline mouse --mode disabled
 
 flyline_fzf_cd() {
     local cmd
