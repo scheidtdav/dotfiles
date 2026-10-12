@@ -6,3 +6,6 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # User specific environment and startup programs
+
+# Vite+ bin (https://viteplus.dev)
+. "/home/dscheidt/.config/vite-plus/env"
